@@ -1,0 +1,30 @@
+@startuml
+!theme plain
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam backgroundColor #FAFCFF
+skinparam componentBackgroundColor #EAF4FA
+left to right direction
+title Desktop Workspace — pinned public components
+component "desktop-workspace\nVersion pins · integration checks · source bundle" as Parent
+component "workspace-state\nLifecycle coordinator" as Workspace
+component "gnome-winctl\nWindow placement" as Windows
+component "login-hud\nProgress and shutdown UI" as HUD
+component "hide-suspend\nPower menu extension" as Suspend
+component "input-source-popup-guard\nKeyboard layout popup recovery" as Guard
+component "gc-profiled\nTask scheduler" as GC
+Parent ..> Workspace : pinned commit
+Parent ..> Windows : pinned commit
+Parent ..> HUD : pinned commit
+Parent ..> Suspend : pinned commit
+Parent ..> Guard : pinned commit
+Parent ..> GC : pinned commit
+Workspace --> Windows : place / verify
+Workspace --> HUD : progress / shutdown protocol
+HUD --> GC : read optional status
+legend bottom
+Dotted: Git submodule pin
+Solid: runtime integration
+The tools keep separate histories and releases.
+endlegend
+@enduml

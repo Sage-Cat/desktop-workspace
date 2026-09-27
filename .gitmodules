@@ -1,0 +1,18 @@
+[submodule "workspace-state"]
+	path = workspace-state
+	url = https://github.com/Sage-Cat/workspace-state.git
+[submodule "gnome-winctl"]
+	path = gnome-winctl
+	url = https://github.com/Sage-Cat/gnome-winctl.git
+[submodule "login-hud"]
+	path = login-hud
+	url = https://github.com/Sage-Cat/login-hud.git
+[submodule "hide-suspend"]
+	path = hide-suspend
+	url = https://github.com/Sage-Cat/hide-suspend.git
+[submodule "input-source-popup-guard"]
+	path = input-source-popup-guard
+	url = https://github.com/Sage-Cat/input-source-popup-guard.git
+[submodule "gc-profiled"]
+	path = gc-profiled
+	url = https://github.com/Sage-Cat/gc-profiled.git

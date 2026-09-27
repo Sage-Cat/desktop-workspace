@@ -1,0 +1,20 @@
+# Track only the public workspace and its six component repositories.
+/*
+!/.gitignore
+!/.gitmodules
+!/.github/
+!/.githooks/
+!/README.md
+!/LICENSE
+!/Makefile
+!/docs/
+!/scripts/
+!/tests/
+!/workspace-state/
+!/gnome-winctl/
+!/login-hud/
+!/hide-suspend/
+!/input-source-popup-guard/
+!/gc-profiled/
+__pycache__/
+*.pyc

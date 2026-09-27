@@ -1,0 +1,84 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 20.19.5
+      - name: Install build and disposable desktop dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes gnome-shell jq shellcheck unzip eslint python3-gi gir1.2-gtk-3.0 gir1.2-glib-2.0 dbus-x11 libgl1-mesa-dri tmux
+          npm --prefix login-hud ci
+      - name: Use the checked commit identity for temporary Git fixtures
+        run: |
+          git config --global user.name "$(git show -s --format=%an HEAD)"
+          git config --global user.email "$(git show -s --format=%ae HEAD)"
+      - name: Validate pinned sources
+        run: make check
+      - name: Build from the complete release archive
+        run: |
+          bundle="$RUNNER_TEMP/source-bundle"
+          unpacked="$RUNNER_TEMP/source-check"
+          python3 .github/scripts/release.py prepare --output "$bundle"
+          mkdir -p "$unpacked"
+          tar -xzf "$bundle"/*.tar.gz -C "$unpacked" --strip-components=1
+          npm --prefix "$unpacked/login-hud" ci
+          make -C "$unpacked" check-source
+      - name: Test the combined desktop in isolation
+        run: make integration EVIDENCE_DIR="$RUNNER_TEMP/desktop-workspace-integration"
+  publish:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    concurrency:
+      group: release-${{ github.repository }}-${{ github.sha }}
+      cancel-in-progress: false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - name: Reject private publication inputs
+        run: python3 .github/scripts/privacy.py
+      - name: Prepare complete pinned source bundle
+        run: python3 .github/scripts/release.py prepare
+      - name: Publish or verify commit release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/release.py publish --skip-promotion
+  promote-latest:
+    needs: publish
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    concurrency:
+      group: release-latest-${{ github.repository }}
+      cancel-in-progress: false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - name: Promote the current tested build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/release.py promote
