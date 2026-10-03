@@ -37,6 +37,9 @@ never resets component branches or runs `submodule update --remote` during build
 
 ## Checks
 
+See [validation](validation.md) for the real VM procedure, recorded results and
+coverage limits.
+
 - `make test`: parent pin, packaging and privacy regression tests.
 - `make check`: pin/privacy checks and all component source suites.
 - `make integration`: real placement and HUD cancellation in isolated GNOME.
