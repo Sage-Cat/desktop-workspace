@@ -27,6 +27,36 @@ installation with GNOME/Wayland and the real applications installed. Do not run
 its power-off fixture on a working desktop. CI's headless checks are not a
 substitute for the guest shutdown/boot tests.
 
+## Retained-checkpoint upgrade: 2026-10-04
+
+Runtime candidate Workspace State `437b03872110790b4a3ae86ebe89221081235973`
+fixes the first-login transition from an old retained browser recipe to a newer,
+intact native session. The old recipe has six windows and 38 tabs; the real
+browser has seven windows, 42 tabs and three groups. There is no preparatory
+manual save or automatic baseline adoption.
+
+| Check | Result |
+| --- | --- |
+| Source suite | 964 Python tests plus browser/editor companion checks passed |
+| Isolated GNOME | Six placement and 17 HUD cases passed |
+| Unfixed `ef24480` cold boot | Reproduced the failure; kept as `passed: false` |
+| `ef24480` → `437b038` | Full shutdown, cold boot and login passed; 25 native windows and complete content/placement verified |
+| Same-release retained replay | Passed with real HUD cancellation/retry and all 42 HTTP responses delayed at least three seconds |
+| Adverse reconciliation | Five real companion/production-validator probes refused changes without content or identity loss |
+| Terminal autosave | Two actual save hooks retained original capture evidence and reconciliation eligibility |
+| Ordinary continuity | Third real shutdown/cold-boot cycle passed without fixture reset or manual save; healthy shutdown captured the complete new baseline |
+| Real signed-out CLI | Authentication screen verified again on the final boot in an existing Alacritty/tmux client |
+
+Full cycles require clean native browser exit before Shell, user-manager stop,
+QMP guest shutdown/EOF, scoped receipts and exact restored inventories. A
+historical `cd42271` → `723de36` run fixed browser reuse but failed the complete
+cycle due to old teardown behavior and inconsistent viewer-fixture placement;
+it is not counted as a passing upgrade.
+
+The component test guide records the fixture, commands, evidence and limits.
+The signed-out workload and host-versus-guest limitations below still apply.
+Documentation-only commits after the candidate do not imply extra runtime tests.
+
 ## Recorded validation: 2026-10-03
 
 The runtime tested used Workspace State `ef24480e0974442fedb6c100be67c9bfbe84826b`
