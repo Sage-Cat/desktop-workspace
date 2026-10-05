@@ -27,6 +27,51 @@ installation with GNOME/Wayland and the real applications installed. Do not run
 its power-off fixture on a working desktop. CI's headless checks are not a
 substitute for the guest shutdown/boot tests.
 
+## Delayed placement and shutdown settlement: 2026-10-05
+
+The earlier short HTTP delay did not cover a native restore call returning with
+pending content. A loopback fixture now releases responses only after three
+production calls return pending. The old runtime reproduced verified content
+with failed placement and no compositor request. The fix submits an owned first
+placement only after exact native content and group checks succeed.
+
+| Check | Result |
+| --- | --- |
+| Unfixed `437b038` cold boot | Expected regression; kept as a failed product trial |
+| `7c02d04` cold boot | Three pending windows reached verified content and placement |
+| `79465c0` integrated cold boot | Same pending path and complete inventory/placement passed |
+| Ordinary `79465c0` → `887e593` | Clean GNOME shutdown and exact cold-boot continuity passed without fixture mutation |
+| Native portal stop-job latency | A 35-second VM-only stop gate exceeded the deadline; handoff was withdrawn and ownership held until settlement |
+| Isolated GNOME | Nine placement/companion and 17 HUD cases passed |
+| Adverse identity and ownership | Changed content, ambiguous matches and stale continuation owners refused without loss or moves |
+
+Both positive pending trials preserved seven Chrome windows, 42 synthetic tabs,
+three groups, 25 native windows, ten tmux sessions and 23 synthetic workers.
+They used real GNOME power-off, HUD countdown, QMP guest shutdown, cold boot and
+Ubuntu login. No measured manual save or corrective placement produced the pass.
+Those earlier pending trials kept Chrome on workspace/display 0; the remaining
+application windows covered the other workspaces/displays. Scattered-browser
+checks on the later candidate are recorded separately.
+
+The document portal now has a native stop and settlement receipt before GNOME
+handoff. Tests distinguish issued jobs from pre-issuance cancellation and keep
+ownership until outstanding work settles. This coordinates Ubuntu's five-second
+user-manager shutdown deadline; it does not prove which historical internal FUSE
+call blocked. Account data and physical-monitor behavior remain outside the
+guest coverage described below.
+
+A further real early-cancel trial verified completed native job settlement,
+unchanged sealed checkpoint/tmux bytes and actual autosave deferral. Its retry
+refused a missing VS Code owner proof. The shared migrated-main helper now
+supports exact editor recovery/project units with the existing live executable,
+parent/child, user and PID/start-time proof. The old failure is retained; service
+success is not treated as proof that no editor children were forcibly stopped.
+
+The same trial exposed a stale HUD commit overlay after completed cancellation.
+The new HUD clears matching terminal markers and permits shutdown progress only
+under current readiness/authority. All 55 Node checks and 18 isolated real HUD
+checks passed. Coordinated VM acceptance uses both fixes together.
+
 ## Retained-checkpoint upgrade: 2026-10-04
 
 Runtime candidate Workspace State `437b03872110790b4a3ae86ebe89221081235973`
