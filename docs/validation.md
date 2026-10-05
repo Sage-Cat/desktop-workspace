@@ -72,6 +72,20 @@ The new HUD clears matching terminal markers and permits shutdown progress only
 under current readiness/authority. All 55 Node checks and 18 isolated real HUD
 checks passed. Coordinated VM acceptance uses both fixes together.
 
+The scattered-browser retained replay on Workspace State `4f81992` / HUD
+`8522da1` passed delayed content, placement and the complete 25-window inventory.
+Its early-cancel retry then exposed three application checkpoint stages left
+pending by the reuse branch. HUD correctly withheld its countdown. The worker
+now publishes all inherited category stages and preserves original degradation;
+the old failure is retained, not relabeled.
+
+Scoped settled failures now report recovery completion accurately in HUD and
+its diagnostic endpoint. The current source checks passed 1099 Python tests,
+browser/editor protocol checks and 58 HUD tests. Real isolated GNOME passed
+21 HUD cases, including Cancel → Close → a fresh completed retry and refusal
+to acknowledge an overall-ready report with a pending category. Full-cycle
+acceptance and runtime revision records are added after their actual checks.
+
 ## Retained-checkpoint upgrade: 2026-10-04
 
 Runtime candidate Workspace State `437b03872110790b4a3ae86ebe89221081235973`
