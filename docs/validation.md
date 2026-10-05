@@ -83,8 +83,32 @@ Scoped settled failures now report recovery completion accurately in HUD and
 its diagnostic endpoint. The current source checks passed 1099 Python tests,
 browser/editor protocol checks and 58 HUD tests. Real isolated GNOME passed
 21 HUD cases, including Cancel → Close → a fresh completed retry and refusal
-to acknowledge an overall-ready report with a pending category. Full-cycle
-acceptance and runtime revision records are added after their actual checks.
+to acknowledge an overall-ready report with a pending category.
+
+Final acceptance used Workspace State `08ca75b` and HUD `afa9f9e`, immutable
+guest `r-d756f13c30309fc2f0b977d4`. All four lifecycle trials passed:
+
+| Final trial | Result |
+| --- | --- |
+| Ordinary upgrade | Exact 25-window state; clean shutdown/cold boot; 5.022-second countdown |
+| Retained/degraded recipe with delayed native content | Three pending returns continued to verified placement; seven Chrome windows/42 tabs/three groups preserved |
+| Early Cancel and protected retry | Cancel at 3.270 seconds; native jobs settled; actual autosave retained sealed bytes; new 5.062-second countdown; full cold-boot restore |
+| Ordinary next cycle | Exact inventory/content/placement without fixture mutation, save or corrective moves; 5.004-second countdown |
+
+The last three use the same runtime throughout. Chrome spans six workspaces
+and three virtual displays. Native content/group/window continuity, scoped
+receipts, genuine GNOME confirmation, QMP shutdown/EOF and clean user-manager
+stop are required. The actual running Chrome worker revision was checked.
+The editor's migrated-main helper completed without child SIGKILL. The VM-only
+35-second portal gate tests native stop-job latency, not the unidentified
+historical internal FUSE call. No reconstruction or relaxed failed-attempt
+verifier created a pass; the intermediate worker upgrade is recorded separately.
+
+Full SHAs, methodology and coverage limits are in
+[the final component matrix](https://github.com/Sage-Cat/workspace-state/blob/main/docs/testing.md#final-coordinated-vm-acceptance).
+Documentation-only commits preserve the tested packaged source digests. The
+host receives next-login-only deployment; that actual host login is not a VM
+test result. README remains a short setup/install entry point.
 
 ## Retained-checkpoint upgrade: 2026-10-04
 
