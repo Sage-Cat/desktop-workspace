@@ -1,0 +1,43 @@
+{
+  "method": "Native GNOME Shell headless Wayland full-stage capture",
+  "gnome_shell": "GNOME Shell 46.0",
+  "virtual_monitor": "1920x1200, scale 1",
+  "data": "Disposable application profiles, generated example project and synthetic HUD telemetry",
+  "post_processing": "none",
+  "source_revisions": {
+    "login-hud": "bd4262e46451e8bdb98ad75e8a6420ed4cd0f04e"
+  },
+  "source_sha256": {
+    "extension.js": "87b3fac1786fdf45e69f665b7c842e01835654258cbefb647a317b7ae740fde4",
+    "stylesheet.css": "e09442c07d6c8311cc6856ef3e89052997b63cfd5d4d2f4c0c63e811810735ca",
+    "scripts/screenshot-fixture.js": "f3b7acdac5249aabd5b0b0ac6cf93d64e1cf718df415ac3aaac2b085ed90ad07"
+  },
+  "scenes": [
+    {
+      "file": "hud-and-desktop.png",
+      "native_apps": [
+        "Chrome",
+        "Alacritty/tmux",
+        "VS Code",
+        "Nemo"
+      ],
+      "hud_visible": true,
+      "modal": false
+    },
+    {
+      "file": "desktop-apps.png",
+      "native_apps": [
+        "Chrome",
+        "Alacritty/tmux",
+        "VS Code",
+        "Nemo"
+      ],
+      "hud_visible": false,
+      "modal": false
+    }
+  ],
+  "images_sha256": {
+    "desktop-apps.png": "9ee3f4e871f43eaec9d06409882c597019827fde286fcd7f16539fca1f904c67",
+    "hud-and-desktop.png": "08233f1424ef7d53a843d095045b2416c8467a708edf92975a260d2a3d068e91"
+  }
+}

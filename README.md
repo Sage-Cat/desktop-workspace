@@ -3,6 +3,14 @@
 Six public GNOME desktop tools in one checkout, pinned to tested commits.
 Each component keeps its own repository and releases.
 
+![Startup HUD on a full GNOME desktop](docs/images/hud-and-desktop.png)
+
+Native GNOME demo with disposable profiles and example HUD telemetry.
+
+![Chrome, Alacritty with tmux, VS Code and Nemo](docs/images/desktop-apps.png)
+
+The same desktop with the HUD closed. [Screenshot details](docs/screenshots.md).
+
 ![Repository layout](docs/repositories.svg)
 
 [PlantUML source](docs/repositories.puml).
