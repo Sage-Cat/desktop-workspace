@@ -27,6 +27,42 @@ installation with GNOME/Wayland and the real applications installed. Do not run
 its power-off fixture on a working desktop. CI's headless checks are not a
 substitute for the guest shutdown/boot tests.
 
+## Terminal identity, names and Nemo deadlines: 2026-10-06
+
+Four host conversations were manually resumed by their exact UUIDs in existing
+panes. The user chose to keep the current host layout. Fresh daemon-backed CLI
+clients had lacked a provable saved identity; they now have a conservative
+launch-time thread-title adapter, with visible refusal for unsupported cases.
+New tmux creation preserves pane order, literal names, rename policies and saved
+layout. Existing panes require identity proof before naming changes.
+
+The final component suite passed 1,236 Python tests and browser/editor protocols.
+Private native tests passed on both host and guest, including real CLI 0.160.1
+and 0.160.0 fresh-thread and `/new` binding without authentication or inference.
+The scale workload still uses 23 synthetic workers; it does not prove account
+conversation recovery.
+
+The first real names cycle passed all terminal checks but failed the whole
+desktop due to Nemo's shared timeout. Regression tests reproduced an expired
+placement-lock wait with no issued move. Per-window budgets now retain the
+operation deadline, bounded waits and ownership checks. The unchanged failed
+guest then passed genuine GNOME shutdown, cold boot and the full 25-window
+oracle on `r-527d1ba937b3924da3065b5f`, without preparatory save or corrective
+placement. Its HUD countdown measured 5.009 seconds. Failed and successful
+trials are recorded separately. The following ordinary cycle also passed the
+complete oracle without save, fixture mutation or corrective moves; its
+countdown measured 5.012 seconds. Commands and limits are in the
+[terminal test record](https://github.com/Sage-Cat/workspace-state/blob/main/docs/testing.md#terminal-identity-and-names-2026-10-06).
+
+Published component revision:
+`ee9e791a6b5fb4d3e4839f59e92ccb7904a6b683`. Its packaged runtime digest is
+`faa72fa369ce5705cbe46973fae7a309ecbc830421510c534c2063513babd865`.
+All eight staged component content digests match the final tested guest release;
+the different release IDs also encode Git provenance. Umbrella `make check`
+and isolated integration passed, including six placement and 21 HUD cases.
+Host deployment is scheduled for next login; no active host application or
+tmux layout was restarted or changed to activate this build.
+
 ## Capture provenance and repeat boot: 2026-10-06
 
 The retained recipe was not lost. Its newer complete browser observation was
