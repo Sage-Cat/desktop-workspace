@@ -27,6 +27,41 @@ installation with GNOME/Wayland and the real applications installed. Do not run
 its power-off fixture on a working desktop. CI's headless checks are not a
 substitute for the guest shutdown/boot tests.
 
+## Capture provenance and repeat boot: 2026-10-06
+
+The retained recipe was not lost. Its newer complete browser observation was
+incorrectly rejected when shutdown capture took more than one second. A later
+terminal autosave could remove that original context. Captures now bind UUID,
+completion time and payload digests; old hook-stripped evidence requires a unique
+matching original private history publication. Unsafe or ambiguous evidence
+still refuses recovery instead of guessing or replacing windows.
+
+Workspace State runtime `5bad729` passed real KVM trials with the same 25-window,
+seven-browser/42-tab/three-group, ten-tmux workload described below:
+
+- Legacy slow capture → new release → cold boot: exact restoration, measured
+  capture gap 5.986818 seconds.
+- New capture → three native calls returning pending → cold boot: exact
+  restoration and later verified placement, measured gap 7.490238 seconds.
+- Partial application drain → actual HUD Cancel → settled native jobs → retry:
+  sealed checkpoint/tmux bytes survived a real autosave; cold boot restored the
+  complete desktop without manual reconstruction.
+- Ordinary next shutdown and cold boot: exact continuity passed without fixture
+  mutation, manual save or corrective placement.
+
+The old runtime separately reproduced pre-launch refusal with a genuine
+2.878779-second capture. Its original synthetic profile retained the tabs and
+groups. The history-only compatibility test used this real producer output but
+was a read-only consumer check, not an additional full cold-boot trial.
+
+Local checks passed 1,134 Python regressions plus browser/editor protocols.
+Independent native checks passed nine placement/companion and 21 HUD cases;
+umbrella integration passed six placement and 21 HUD cases. The full procedure,
+evidence requirements and limitations are in the
+[capture-binding test record](https://github.com/Sage-Cat/workspace-state/blob/main/docs/testing.md#capture-binding-2026-10-06).
+README files retain only setup, use and documentation links. No private runtime
+logs, profiles or per-run identifiers are published.
+
 ## Delayed placement and shutdown settlement: 2026-10-05
 
 The earlier short HTTP delay did not cover a native restore call returning with
