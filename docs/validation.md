@@ -27,6 +27,40 @@ installation with GNOME/Wayland and the real applications installed. Do not run
 its power-off fixture on a working desktop. CI's headless checks are not a
 substitute for the guest shutdown/boot tests.
 
+## Strict standalone save: 2026-10-07
+
+Manual save now checks current shutdown/recovery ownership before capturing or
+writing, including cancellations that occurred before application draining.
+An explicit `save --verify-idle-codex` can identify older idle native clients
+through a bounded `/status` diagnostic. Automatic saves never type into panes;
+uncertain identity or changed ownership preserves the prior checkpoint.
+
+Component `7c24ff96d74941d74bd439cd12523183a792c64b` passed 1,286 Python tests
+and the browser/editor protocol suites. Its runtime content digest is
+`56b1327dd9812eb50867d823b66bfe0b27eab84be6c9925557439f5903507be8`.
+All eight public runtime content digests match the tested guest candidate
+`r-be0d082bd04b3a52b15a5391`.
+
+Three real strict saves preserved 25 native windows, ten tmux sessions, seven
+Chrome windows, 42 tabs and three groups. All five categories were fully
+captured and adopted without retained recipes or warnings. Raw browser IDs,
+group membership, native placement, tmux names/layout/geometry, processes and
+selection remained unchanged; HUD and completion receipts were unchanged too.
+The staged candidate was invoked separately from the guest's older active
+coordinator. There was no shutdown, application restart or corrective move.
+
+Real native CLI 0.160.1 tests cover no-alt-screen 159×37 and 80×37, and seeded
+alternate-screen 319×76. A smaller alternate-screen repeat that is byte-identical
+to historical output deliberately refuses; it is not counted as an identity
+proof. Drafts, active turns, resizing and changed PID/TTY ownership also refuse.
+Status controls use a private loopback provider with zero inference requests.
+The desktop-scale conversation workers remain synthetic.
+
+See [commands, native limits and the standalone guest harness](https://github.com/Sage-Cat/workspace-state/blob/main/docs/testing.md#standalone-save-during-cancellation-recovery).
+Source/CI, guest validation, scheduled installation and code already running in
+a desktop are separate results. This update does not claim another host login
+or another power-off cycle; the earlier real cold-boot cycles remain below.
+
 ## Terminal identity, names and Nemo deadlines: 2026-10-06
 
 Four host conversations were manually resumed by their exact UUIDs in existing
