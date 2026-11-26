@@ -23,7 +23,7 @@ jobs:
           # Avoid repeated timeouts against the runner's Azure HTTP mirror.
           printf '%s\n' 'https://archive.ubuntu.com/ubuntu' | sudo tee /etc/apt/apt-mirrors.txt >/dev/null
           sudo apt-get update
-          sudo env DEBIAN_FRONTEND=noninteractive apt-get install --yes gnome-shell jq shellcheck unzip eslint python3-gi gir1.2-gtk-3.0 gir1.2-glib-2.0 dbus-x11 libgl1-mesa-dri tmux
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install --yes gnome-shell alacritty gnome-calculator libgtk-3-bin jq shellcheck unzip eslint python3-gi gir1.2-gtk-3.0 gir1.2-glib-2.0 dbus-x11 libgl1-mesa-dri tmux
           npm --prefix login-hud ci
       - name: Use the checked commit identity for temporary Git fixtures
         run: |
@@ -43,7 +43,7 @@ jobs:
       - name: Test the combined desktop in isolation
         run: |
           make integration EVIDENCE_DIR="$RUNNER_TEMP/desktop-workspace-integration" || {
-            for result in "$RUNNER_TEMP/desktop-workspace-integration/placement/results.json" "$RUNNER_TEMP/desktop-workspace-integration/hud/results.json"; do
+            for result in "$RUNNER_TEMP/desktop-workspace-integration/placement/results.json" "$RUNNER_TEMP/desktop-workspace-integration/switches/results.json" "$RUNNER_TEMP/desktop-workspace-integration/hud/results.json"; do
               if test -f "$result"; then cat "$result"; fi
             done
             exit 1

@@ -4,7 +4,7 @@ EVIDENCE_DIR ?= /tmp/desktop-workspace-integration
 .PHONY: help check check-source test integration stage install pins
 help:
 	@echo 'check: validate pins and run all source checks'
-	@echo 'integration: test placement and HUD in disposable GNOME sessions'
+	@echo 'integration: test placement, workspace switches and HUD in disposable GNOME sessions'
 	@echo 'stage: package the pinned public components without installation'
 	@echo 'install: stage and schedule installation for next graphical login'
 	@echo 'pins: print the recorded component commits'
@@ -34,6 +34,7 @@ test:
 integration:
 	$(PYTHON) scripts/workspace.py check
 	$(PYTHON) workspace-state/tests/integration/run_headless.py --run --output "$(EVIDENCE_DIR)/placement"
+	$(PYTHON) workspace-state/tests/integration/run_headless.py --run --workspace-switch --output "$(EVIDENCE_DIR)/switches"
 	$(PYTHON) workspace-state/tests/integration/run_hud_headless.py --run --output "$(EVIDENCE_DIR)/hud"
 
 stage:
